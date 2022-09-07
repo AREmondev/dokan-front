@@ -5,7 +5,9 @@
 
                 <div class="topbar-left	d-none d-lg-block">
                     <div class="text-center">
-                        <a href="index.html" class="logo"><img src="assets/images/logo.png" height="22" alt="logo"></a>
+                        <nuxt-link style="font-size:2rem; font-weight:bold" to="/" class="logo">
+                            Dokan
+                        </nuxt-link>
                     </div>
                 </div>
 
@@ -86,7 +88,7 @@
                         <li class="list-inline-item dropdown notification-list nav-user">
                             <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" aria-expanded="false">
-                                <img src="assets/images/users/avatar-6.jpg" alt="user" class="rounded-circle">
+                                
                                 <span class="d-none d-md-inline-block ml-1">David M. Bailey <i class="mdi mdi-chevron-down"></i> </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown">

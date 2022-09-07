@@ -8,7 +8,9 @@
                 <div class="left-side-logo d-block d-lg-none">
                     <div class="text-center">
                         
-                        <a href="index.html" class="logo"><img src="assets/images/logo_dark.png" height="20" alt="logo"></a>
+                        <a href="/" class="logo">
+                            Dokan
+                        </a>
                     </div>
                 </div>
 
