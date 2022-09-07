@@ -179,7 +179,7 @@ export default {
                 }
                 console.log(data)
                 let url = API_URL(`customer/order`);
-                let brToken = token('Bearer')
+                let brToken = localStorage.getItem("token")
                 this.$axios.post(url, data, {headers: {Authorization: brToken}}).then(response => {
                     console.log(response)
                     if(response.status == 200){

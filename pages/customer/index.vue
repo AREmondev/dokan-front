@@ -132,7 +132,7 @@ export default{
           let url = API_URL("customer");
         //   let token = "Bearer " + localStorage.getItem("token")
         //   , {headers: {Authorization: token}}
-         let brToken = token('Bearer')
+         let brToken = localStorage.getItem("token")
          console.log('token',brToken)
 
           this.$axios.get(url,  {headers: {Authorization: brToken}}).then(response => {
@@ -157,7 +157,7 @@ export default{
                 total_due: parseInt(this.total_bill)
             }
           let url = API_URL("customer/create-customer");
-          let brToken = token('Bearer')
+          let brToken = localStorage.getItem("token")
         console.log(data)
           this.$axios.post(url, data, {headers: {Authorization: brToken}}).then(response => {
             console.log(response)

@@ -81,7 +81,7 @@ export default {
         getAllCustomer(){
             if(process.browser){
                 let url = API_URL("customer");
-                let brToken = token('Bearer')
+                let brToken = localStorage.getItem("token")
                 this.$axios.get(url,  {headers: {Authorization: brToken}}).then(response => {
                     console.log(response)
                     if(response.status == 200){
@@ -94,7 +94,7 @@ export default {
             if(process.browser && (id || this.$route.query.id)){
                 let customerId = id || this.$route.query.id
                 let url = API_URL(`customer/${customerId}`);
-                let brToken = token('Bearer')
+                let brToken = localStorage.getItem("token")
                 this.$axios.get(url, {headers: {Authorization: brToken}}).then(response => {
                     this.$router.push('/order?id='+customerId)
                     console.log(response)

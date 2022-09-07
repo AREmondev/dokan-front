@@ -141,9 +141,9 @@ export default{
     getAllProduct(){
         if(process.browser){
           let url = API_URL("product");
-        //   let token = "Bearer " + localStorage.getItem("token")
+          let token = "Bearer " + localStorage.getItem("token")
         //   , {headers: {Authorization: token}}
-          this.$axios.get(url).then(response => {
+          this.$axios.get(url, {headers: {Authorization: token}}).then(response => {
             if(response.status == 200){
                 this.products = response.data
                 this.totalProductValue()
@@ -160,8 +160,10 @@ export default{
                 countInStock: this.stock,
                 expireDate: new Date()
             }
+        let token = "Bearer " + localStorage.getItem("token")
+
           let url = API_URL("product/create");
-          this.$axios.post(url, data).then(response => {
+          this.$axios.post(url, data, {headers: {Authorization: token}}).then(response => {
             console.log(response)
             if(response.status == 201){
                 this.stock = ''
