@@ -29,13 +29,13 @@
                             <li>
                                 <nuxt-link to="/product" class="waves-effect">
                                     <i class="dripicons-home"></i>
-                                    <span> Product <span class="badge badge-success badge-pill float-right">3</span></span>
+                                    <span> Product </span>
                                 </nuxt-link>
                             </li>
                             <li>
                                 <nuxt-link to="/customer" class="waves-effect">
                                     <i class="dripicons-home"></i>
-                                    <span> Customer <span class="badge badge-success badge-pill float-right">3</span></span>
+                                    <span> Customer</span>
                                 </nuxt-link>
                             </li>
                             <li>
@@ -47,7 +47,7 @@
                             <li>
                                 <nuxt-link to="/payment" class="waves-effect">
                                     <i class="dripicons-home"></i>
-                                    <span> Make Order</span>
+                                    <span> Make Payment</span>
                                 </nuxt-link>
                             </li>
                         </ul>

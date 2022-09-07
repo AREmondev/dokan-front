@@ -133,6 +133,8 @@ export default{
         //   let token = "Bearer " + localStorage.getItem("token")
         //   , {headers: {Authorization: token}}
          let brToken = token('Bearer')
+         console.log('token',brToken)
+
           this.$axios.get(url,  {headers: {Authorization: brToken}}).then(response => {
             console.log(response)
             if(response.status == 200){
@@ -156,8 +158,6 @@ export default{
             }
           let url = API_URL("customer/create-customer");
           let brToken = token('Bearer')
-        //   , {headers: {Authorization: token}}
-        console.log(brToken)
         console.log(data)
           this.$axios.post(url, data, {headers: {Authorization: brToken}}).then(response => {
             console.log(response)
