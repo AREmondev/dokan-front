@@ -133,7 +133,7 @@ export default {
 
         //   let token = "Bearer " + localStorage.getItem("token")
         //   , {headers: {Authorization: token}}
-         let brToken = localStorage.getItem("token")
+         let brToken = 'Bearer '+localStorage.getItem("token")
           this.$axios.get(url,  {headers: {Authorization: brToken}}).then(response => {
             console.log(response)
             if(response.status == 200){

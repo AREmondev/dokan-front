@@ -96,7 +96,7 @@ export default {
         },
         checkAuth(){
             if(process.browser){
-                let token = localStorage.getItem("token")
+                let token = 'Bearer '+localStorage.getItem("token")
                 let userName = localStorage.getItem("userName")
                 console.log(userName)
                 if(token){
