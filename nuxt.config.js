@@ -21,12 +21,33 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
-        href: 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css'
+        href: '/css/bootstrap.min.css'
+      },
+      {
+        rel: 'stylesheet',
+        href: '/css/icons.css'
+      },
+      {
+        rel: 'stylesheet',
+        href: '/css/typicons.css'
       },
       {
         rel: 'stylesheet',
         href: '/css/style.css'
       }
+    ],
+    script: [
+      { src: '/js/jquery.min.js', type: "text/javascript", body: true, ssr: false },
+      { src: 'js/bootstrap.bundle.min.js', type: "text/javascript", body: true, ssr: false },
+      { src: '/js/detect.js', type: "text/javascript", body: true, ssr: false },
+      { src: '/js/fastclick.js', type: "text/javascript", async: true },
+      { src: '/js/waves.js', type: "text/javascript", body: true, ssr: false },
+      { src: '/js/jquery.blockUI.js', type: "text/javascript", body: true, ssr: false },
+      { src: '/js/jquery.nicescroll.js', type: "text/javascript", body: true, ssr: false },
+      { src: '/js/jquery.scrollTo.js', type: "text/javascript", body: true, ssr: false },
+      { src: '/js/jquery.slimscroll.js', type: "text/javascript", body: true, ssr: false },
+      { src: '/js/modernizr.min.js', type: "text/javascript", body: true, ssr: false },
+      { src: '/js/app.js', type: "text/javascript", body: true, ssr: false },
     ]
   },
 
@@ -37,6 +58,8 @@ export default {
 // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 plugins: [
   { src: '~/plugins/api.js', mode: 'client' },
+  { src: '~/plugins/client.js', mode: 'client' },
+
 ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import {API_URL} from "~/plugins/api"
+import {API_URL, token} from "~/plugins/api"
 export default {
   data(){
     return {
@@ -40,13 +40,19 @@ export default {
   },
   methods: {
     getOrder(){
-      if(process.browser){
-          let url = API_URL("orders/");
-          let token = "Bearer " + localStorage.getItem("token")
-          this.$axios.get(url, {headers: {Authorization: token}}).then(response => {
+        if(process.browser){
+        let url = API_URL(`order`);
+
+        //   let token = "Bearer " + localStorage.getItem("token")
+        //   , {headers: {Authorization: token}}
+         let brToken = token('Bearer')
+          this.$axios.get(url,  {headers: {Authorization: brToken}}).then(response => {
+            console.log(response)
             if(response.status == 200){
-              this.orders = response.data.reverse();
-              console.log(this.orders)
+              // this.products.reduce(acc , red => {
+                
+              // })
+            //   console.log(this.orders)
             }
           }).catch(err => console.log(err));
       }

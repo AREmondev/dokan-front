@@ -98,26 +98,5 @@ export default {
 </script>
 
 <style>
-.list-group-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-bottom: 0.7rem;
-    border: none;
-    background-color: #ffffff;
-    box-shadow: 0 0 15px #fff;
-    border-radius: 0.3rem;
-}
-li.list-group-item img {
-    height: 60px !important;
-    min-width: 60px !important;
-    width: 60px !important;
-    border-radius: 60px;
-}
-a.name {
-    font-size: 1.8rem;
-    color: rgb(15, 15, 15);
-    text-decoration: none;
-}
+
 </style>

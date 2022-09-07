@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="fixed-left">
         Test
     </div>
 </template>

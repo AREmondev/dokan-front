@@ -187,16 +187,5 @@ export default {
 </script>
 
 <style>
-li > * {
-    min-width: 150px;
-    text-align: left;
-}
-li .number {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.dlt {
-    cursor: pointer;
-}
+
 </style>

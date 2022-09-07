@@ -96,12 +96,16 @@ export default {
           this.$axios.post(url, data, {headers: {Authorization: token}}).then(response => {
               console.log(response)
               if(response.status == 200){
+                alert("Customer successfully added")
                 this.name = ''
                 this.father_name= ''
                 this.phone= ''
                 this.due= ''
               }
-          }).catch(err => console.log(err));
+          }).catch(err => {
+            alert("Customer added failed");
+            console.log(err)
+          })
       }
     },
   }
@@ -109,7 +113,5 @@ export default {
 </script>
 
 <style>
-  .form-group {
-    margin-bottom: 18px;
-  }
+
 </style>

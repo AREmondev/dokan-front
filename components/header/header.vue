@@ -1,26 +1,59 @@
 <template>
-    <div>
-        <nav class="navbar navbar-expand-lg  navbar-light bg-light">
-            <div class="container">
-            <nuxt-link to="/"  class="navbar-brand" href="#">Syngenta Shop</nuxt-link>
+     <!-- ========== Left Sidebar Start ========== -->
+            <div class="left side-menu">
+                <button type="button" class="button-menu-mobile button-menu-mobile-topbar open-left waves-effect">
+                    <i class="mdi mdi-close"></i>
+                </button>
 
-            <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
-                <div v-if="user.username != ''" class="d-flex align-items-conter">
-                    <nuxt-link class="btn btn-success m-2" to="/add-customer">Add Customer</nuxt-link>
-                    <nuxt-link class="btn btn-success m-2" to="/all-product">Product</nuxt-link>
-                    <nuxt-link class="btn btn-success m-2" to="/add-product">Add Product</nuxt-link>
-                    <nuxt-link class="btn btn-success m-2" to="/overview">Overview</nuxt-link>
+                <div class="left-side-logo d-block d-lg-none">
+                    <div class="text-center">
+                        
+                        <a href="index.html" class="logo"><img src="assets/images/logo_dark.png" height="20" alt="logo"></a>
+                    </div>
                 </div>
-                <form v-else class="form-inline d-flex align-items-center my-2 ml-0 my-lg-0">
-                    <input v-model="userName" class="form-control m-2" type="email" placeholder="Email">
-                    <input v-model="password" class="form-control m-2" type="password" placeholder="Password">
-                    <button @click.prevent="login"  class="btn btn-outline-success my-2 my-sm-0">Login</button>
-                </form>
 
+                <div class="sidebar-inner slimscrollleft">
+                    
+                    <div id="sidebar-menu">
+                        <ul>
+                            <li class="menu-title">Main</li>
+
+                            <li>
+                                <nuxt-link to="/" class="waves-effect">
+                                    <i class="dripicons-home"></i>
+                                    <span> Dashboard</span>
+                                </nuxt-link>
+                            </li>
+                            <li>
+                                <nuxt-link to="/product" class="waves-effect">
+                                    <i class="dripicons-home"></i>
+                                    <span> Product <span class="badge badge-success badge-pill float-right">3</span></span>
+                                </nuxt-link>
+                            </li>
+                            <li>
+                                <nuxt-link to="/customer" class="waves-effect">
+                                    <i class="dripicons-home"></i>
+                                    <span> Customer <span class="badge badge-success badge-pill float-right">3</span></span>
+                                </nuxt-link>
+                            </li>
+                            <li>
+                                <nuxt-link to="/order" class="waves-effect">
+                                    <i class="dripicons-home"></i>
+                                    <span> Make Order</span>
+                                </nuxt-link>
+                            </li>
+                            <li>
+                                <nuxt-link to="/payment" class="waves-effect">
+                                    <i class="dripicons-home"></i>
+                                    <span> Make Order</span>
+                                </nuxt-link>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix"></div>
+                </div> <!-- end sidebarinner -->
             </div>
-            </div>    
-        </nav>
-    </div>
+            <!-- Left Sidebar End -->
 </template>
 
 <script>
