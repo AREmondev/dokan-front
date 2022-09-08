@@ -61,6 +61,8 @@
                 </div>
             </div>
 
+            <h4>{{customerTotal}}</h4>
+
              <table v-if="customers && customers.length" id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                 <thead>
                 <tr>
@@ -112,7 +114,8 @@ export default{
             phone_number: '',
             village: '',
             total_bill: 0,
-            customers: []
+            customers: [],
+            customerTotal: 0,
         }
   },
   created() {
@@ -139,6 +142,7 @@ export default{
             console.log(response)
             if(response.status == 200){
               this.customers = response.data.customer
+              this.getCustomerTotalBill()
               // this.products.reduce(acc , red => {
                 
               // })
@@ -158,6 +162,7 @@ export default{
             }
           let url = API_URL("customer/create-customer");
           let brToken = 'Bearer '+localStorage.getItem("token")
+          console.log(brToken)
         console.log(data)
           this.$axios.post(url, data, {headers: {Authorization: brToken}}).then(response => {
             console.log(response)
@@ -166,7 +171,13 @@ export default{
                     position: "top",
                     message: "Successfully cutomer added",
                     type: "success",
-                });        
+                });   
+                this.name = ''
+                this.father_name = ''   
+                this.phone_number = ''
+                this.total_bill = 0
+                
+                this.getAllCustomer()
             //   console.log(this.orders)
             }
           }).catch(err => {
@@ -177,6 +188,13 @@ export default{
                 });        
             });
       }
+    },
+    getCustomerTotalBill(){
+        let total = 0
+        this.customers.forEach(customer => {
+            total += customer.total_due
+        });
+        this.customerTotal = total
     }
   }
 

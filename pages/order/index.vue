@@ -108,8 +108,8 @@ export default {
             if(process.browser){
                 let url = API_URL("product/");
                 let token = "Bearer " + localStorage.getItem("token")
-                // , {headers: {Authorization: token}}
-                this.$axios.get(url).then(response => {
+                // , 
+                this.$axios.get(url, {headers: {Authorization: token}}).then(response => {
                     console.log(response)
                     if(response.status == 200){
                         this.products = response.data;

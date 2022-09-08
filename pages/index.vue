@@ -88,12 +88,12 @@
                                                     <tbody v-if="orders && orders.length">
                                                         <tr :class="{'active' : order.type === 'Payment'}" v-for="(order, i) in orders" :key="i">
                                                             <th scope="row">#{{i + 1}}</th>
-                                                            <td>{{order.customer.name}}</td>
+                                                            <td v-if="order.customer">{{order.customer.name}}</td>
                                                             <td>{{order.createdAt.split("T")[0].split("-").reverse().join("/")}}</td>
                                                             <td>{{order.payment || order.due}}Tk</td>
-                                                            <td>{{order.customer.total_due}}Tk</td>
+                                                            <td v-if="order.customer">{{order.customer.total_due}}Tk</td>
                                                         </tr>
-                                                        </tbody>
+                                                    </tbody>
                                                 </table>
                                             </div>
             
