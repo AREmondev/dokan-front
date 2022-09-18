@@ -75,18 +75,30 @@
                                         <div class="card-body">
                                             <h4 class="mt-0 header-title mb-4">Latest Trasaction</h4>
                                             <div class="table-responsive">
+                                                <div class="p-3">
+                                                    <button @click.prevent="transitionType = 'order'" :class="{'btn-primary' : transitionType == 'order'}" class="btn">Order</button>
+                                                    <button @click.prevent="transitionType = 'payment'" :class="{'btn-primary' : transitionType == 'payment'}"   class="btn">Payment</button>
+                                                    <button  @click.prevent="transitionType = 'stock'" :class="{'btn-primary' : transitionType == 'stock'}"  class="btn">Stock</button>
+                                                </div>
                                                 <table class="table table-hover">
                                                     <thead>
-                                                        <tr>
+                                                        <tr v-if="transitionType != 'stock'">
                                                             <th scope="col">ID No.</th>
                                                             <th scope="col">Name</th>
                                                             <th scope="col">Date</th>
                                                             <th scope="col">Order Due</th>
                                                             <th scope="col">Total Due</th>
                                                         </tr>
+                                                        <tr v-else>
+                                                            <th scope="col">ID No.</th>
+                                                            <!-- <th scope="col">Name</th> -->
+                                                            <th scope="col">Date</th>
+                                                            <!-- <th scope="col">Order Due</th> -->
+                                                            <th scope="col">Total Due</th>
+                                                        </tr>
                                                     </thead>
                                                     <tbody v-if="orders && orders.length">
-                                                        <tr :class="{'active' : order.type === 'Payment'}" v-for="(order, i) in orders" :key="i">
+                                                        <tr v-if="order.type == transitionType" :class="{'active' : order.type === 'Payment'}" v-for="(order, i) in orders" :key="i">
                                                             <th scope="row">#{{i + 1}}</th>
                                                             <td v-if="order.customer">{{order.customer.name}}</td>
                                                             <td>{{order.createdAt.split("T")[0].split("-").reverse().join("/")}}</td>
@@ -117,6 +129,7 @@ export default {
   components: {Main, Loader},
   data(){
     return {
+    transitionType: 'order',
       orders: [],
       isLoading: true,
       totalOrderValue: 0,
@@ -140,7 +153,9 @@ export default {
                 this.orders = response.data.reverse()
                 let totalDue = 0
                 for (const item of this.orders) {
-                    totalDue += item.due
+                    if(item.type == "order"){
+                        totalDue += item.due
+                    }
                 }
                 this.estimetedProfit = (totalDue/100)*10;
                 

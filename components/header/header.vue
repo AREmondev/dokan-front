@@ -50,6 +50,12 @@
                                     <span> Make Payment</span>
                                 </nuxt-link>
                             </li>
+                            <li>
+                                <nuxt-link to="/stock" class="waves-effect">
+                                    <i class="dripicons-home"></i>
+                                    <span>Add Stock</span>
+                                </nuxt-link>
+                            </li>
                         </ul>
                     </div>
                     <div class="clearfix"></div>

@@ -8,7 +8,7 @@
                         <label for="inputState">Products</label>
                         <select v-model="productId" @change="selectProduct(productId)" id="inputState" class="form-control">
                             <option selected>Products</option>
-                            <option :value="pd.id" v-for="pd in products" :key="pd.id">{{pd.name}}</option>
+                            <option :value="pd._id" v-for="pd in products" :key="pd.id">{{pd.name}}</option>
                         </select>
                     </div>
                     <div class="form-group col-md-2">
@@ -28,28 +28,26 @@
             </form>
             <div v-if="addedProducts.length > 0" class="added-product mt-5">
                 <ul class="list-group">
-                    <li class="list-group-item mb-2">
-                        <h4>Name</h4>
-                        <h4>Unit Price</h4>
-                        <h4>Quentity</h4>
-                        <h4>Total Price</h4>
+                    <li class="list-group-item d-flex justify-content-between mb-2">
+                        <h6>Name</h6>
+                        <h6>Unit Price</h6>
+                        <h6>Quentity</h6>
+                        <h6>Total Price</h6>
                     </li>
-                    <li class="list-group-item" v-for="(product, index ) in addedProducts" :key="index">
-                        <h5>{{product.name}}</h5>
-                        <h5>{{product.unite_price}}</h5>
-                        <h5>{{product.qty}}</h5>
-                        <h5 class="number"><span>{{product.total_price}}</span> <span @click.prevent="removeFromCart(product.id)" class="dlt">X</span> </h5>
+                    <li class="list-group-item d-flex justify-content-between " v-for="(product, index ) in addedProducts" :key="index">
+                        <p>{{product.name}}</p>
+                        <p>{{product.unite_price}}</p>
+                        <p>{{product.qty}}</p>
+                        <p class="number"><span>{{product.total_price}}</span> <span @click.prevent="removeFromCart(product._id)" class="dlt text-red ml-4">X</span> </p>
                     </li>
                 </ul>
                 <ul class="list-group">
                     <li class="list-group-item mt-4">
-                        <h4></h4>
-                        <h4></h4>
-                        <h4>{{calculteAddedQty}}</h4>
-                        <h4>{{calculteAddedPrice}}</h4>
+                        <h6>Total Item: {{calculteAddedQty}}</h6>
+                        <h6>Total Price: {{calculteAddedPrice}}</h6>
                     </li>
                 </ul>
-                <button @click.prevent="createOrder" class="btn w-100 d-block btn-primary mt-3">Place Order</button>
+                <button @click.prevent="createStock" class="btn w-100 d-block btn-primary mt-3">Place Order</button>
             </div>
 
         </div>
@@ -57,7 +55,7 @@
 </template>
 
 <script>
-import {API_URL} from "~/plugins/api"
+import {API_URL, token} from "~/plugins/api"
 export default {
     props: {
         products: {
@@ -120,7 +118,7 @@ export default {
     methods: {
         selectProduct(id){
             if(process.browser){
-                let url = API_URL(`products/${id}`);
+                let url = API_URL(`product/${id}`);
                 let token = "Bearer " + localStorage.getItem("token")
                 this.$axios.get(url, {headers: {Authorization: token}}).then(response => {
                     if(response.status == 200){
@@ -163,23 +161,40 @@ export default {
             }
         },
         removeFromCart(id){
-            this.addedProducts = this.addedProducts.filter(product => product.id != id)
+            this.addedProducts = this.addedProducts.filter(product => product._id != id)
         },
-        createOrder(){
+        createStock(){
             if(process.browser){
+                let products = {};
+                for (const product of this.addedProducts) {
+                    products[product._id] = {
+                        ...product
+                    }
+                }
                 let data =  {
-                    "totalPrice": this.calculteAddedPrice,
-                    "products": this.addedProducts
+                    "products": products,
+                    "type": 'stock',
+                    "customer": null
                 }
                 console.log(data)
-                let url = API_URL(`stocks/`);
-                let token = "Bearer " + localStorage.getItem("token")
-                this.$axios.post(url, data, {headers: {Authorization: token}}).then(response => {
-                    
-                    if(response.status == 200){
-                        // this.$router.push("/all-orders")
+                let url = API_URL(`customer/order`);
+                let brToken = 'Bearer '+localStorage.getItem("token")
+                this.$axios.post(url, data, {headers: {Authorization: brToken}}).then(response => {
+                    console.log(response)
+                    if(response.status == 201){
+                        this.$toast.open({
+                            position: "top",
+                            message: "Successfully stock create",
+                            type: "success",
+                        });
                     }
-                }).catch(err => console.log(err));
+                }).catch(err => {
+                    this.$toast.open({
+                        position: "top",
+                        message: "Order creation faield",
+                        type: "warning",
+                    });
+                });
             }
         }
     }

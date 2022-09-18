@@ -182,7 +182,7 @@ export default {
                 let brToken = 'Bearer '+localStorage.getItem("token")
                 this.$axios.post(url, data, {headers: {Authorization: brToken}}).then(response => {
                     console.log(response)
-                    if(response.status == 200){
+                    if(response.status == 201){
                         // this.$router.push("/all-orders")
                         this.$toast.open({
                             position: "top",
