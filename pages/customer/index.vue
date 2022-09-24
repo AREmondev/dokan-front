@@ -77,7 +77,9 @@
 
                 <tbody>
                 <tr v-for="customer in customers" :key="customer.id">
-                    <td>{{customer.name}}</td>
+                    <td>
+                        <nuxt-link :to="`single-customer/?id=${customer._id}`">{{customer.name}}</nuxt-link>
+                    </td>
                     <td>{{customer.village}}</td>
                     <td>{{customer.phone_number}}</td>
                     <td>{{customer.father_name}}</td>
