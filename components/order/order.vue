@@ -4,7 +4,11 @@
             
             <form class="w-100">
                 <div class="form-row row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-2">
+                        <label for="memo">Memo</label>
+                        <input v-model="memo" type="string" class="form-control" id="memo">
+                    </div>
+                    <div class="form-group col-md-4">
                         <label for="inputState">Products</label>
                         <select v-model="productId" @change="selectProduct(productId)" id="inputState" class="form-control">
                             <option selected>Products</option>
@@ -71,6 +75,7 @@ export default {
     },
     data(){
         return {
+            memo: '',
             productId: '',
             qty: 1,
             unit_price: '',
@@ -175,7 +180,8 @@ export default {
                 let data =  {
                     "products": products,
                     "type": 'order',
-                    "customer": this.$route.query.id
+                    "customer": this.$route.query.id,
+                    "memo": this.memo
                 }
                 console.log(data)
                 let url = API_URL(`customer/order`);
