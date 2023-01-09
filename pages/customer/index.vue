@@ -70,6 +70,7 @@
                     <th>Village</th>
                     <th>Phone Number</th>
                     <th>Father Name</th>
+                    <th>PageId</th>
                     <th>Total Bill</th>
                 </tr>
                 </thead>
@@ -83,12 +84,16 @@
                     <td>{{customer.village}}</td>
                     <td>{{customer.phone_number}}</td>
                     <td>{{customer.father_name}}</td>
+                    <td v-if="customer.pageId">{{customer.pageId}}</td>
+                    <div v-else>
+                        <input v-model="pageId" type="number">
+                        <button @click.prevent="updatePageID(customer._id)">Update</button>
+                    </div>
                     <td>{{customer.total_due}}</td>
                     <td>
                         <a class="dlt mr-2 pointer text-red">Delete</a>    
                         <a @click.prevent="selectCustomer(customer._id)" class="dlt mr-2 pointer">Select</a>    
                         <a class="dlt pointer">Edit</a>
-
                     </td>
                 </tr>
                 
@@ -118,6 +123,7 @@ export default{
             total_bill: 0,
             customers: [],
             customerTotal: 0,
+            pageId: null
         }
   },
   created() {
@@ -129,6 +135,24 @@ export default{
 //     }
 //   },
   methods: {
+    updatePageID(id){
+        if(process.browser){
+          let url = API_URL("customer/"+id);
+        //   let token = "Bearer " + localStorage.getItem("token")
+        //   , {headers: {Authorization: token}}
+         let brToken = 'Bearer '+localStorage.getItem("token")
+         let data = {
+            pageId: this.pageId,
+         }
+
+          this.$axios.put(url, data, {headers: {Authorization: brToken}}).then(response => {
+            console.log(response)
+            if(response.status == 200){
+                this.$toast.success("Page ID Updated")
+            }
+          }).catch(err => console.log(err));
+      }
+    },
     selectCustomer(id){
         this.$router.push('/order?id='+id)
     },

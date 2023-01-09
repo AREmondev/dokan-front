@@ -12,6 +12,7 @@
                         <label for="inputState">Products</label>
                         <select v-model="productId" @change="selectProduct(productId)" id="inputState" class="form-control">
                             <option selected>Products</option>
+                            <option value="custom">Custom</option>
                             <option :value="pd._id" v-for="pd in products" :key="pd.id">{{pd.name}}</option>
                         </select>
                     </div>
@@ -25,10 +26,13 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label for="total">Total Price</label>
-                        <input disabled v-model="calculteSelectedprice" type="number" class="form-control" id="total">
+                        <input v-if="productId == 'custom'" disabled v-model="customTotalPrice" type="number" class="form-control" id="total">
+                        <input v-else disabled v-model="calculteSelectedprice" type="number" class="form-control" id="total">
+
                     </div>
                 </div>
-                <button @click.prevent="addselectedProduct" type="submit" class="btn w-100 d-block btn-primary mt-3">Add Products</button>
+                <button v-if="productId != 'custom'" @click.prevent="addselectedProduct" type="submit" class="btn w-100 d-block btn-primary mt-3">Add Products</button>
+                <button v-else @click.prevent="createCustomOrder" type="submit" class="btn w-100 d-block btn-primary mt-3">Create Custom Order</button>
             </form>
             <div v-if="addedProducts.length > 0" class="added-product mt-5">
                 <ul class="list-group">
@@ -75,6 +79,7 @@ export default {
     },
     data(){
         return {
+            customTotalPrice: 0,
             memo: '',
             productId: '',
             qty: 1,
@@ -122,6 +127,10 @@ export default {
     },
     methods: {
         selectProduct(id){
+            if(id == 'custom'){
+                document.getElementById('total').disabled = false
+                return false;
+            }
             if(process.browser){
                 let url = API_URL(`product/${id}`);
                 let token = "Bearer " + localStorage.getItem("token")
@@ -131,6 +140,41 @@ export default {
                         this.selectedProduct.price = response.data.price;
                     }
                 }).catch(err => console.log(err));
+            }
+        },
+        createCustomOrder(){
+            if(process.browser){
+                let data =  {
+                    "products": {
+                        '638744b46a203f7356044615': {_id: '638744b46a203f7356044615', "name": "Custom",
+                            "unite_price": this.customTotalPrice,
+                            "qty": 1,
+                            "total_price": this.customTotalPrice}
+                    },
+                    "type": 'order',
+                    "customer": this.$route.query.id,
+                    "memo": this.memo
+                }
+                console.log(data)
+                let url = API_URL(`customer/order`);
+                let brToken = 'Bearer '+localStorage.getItem("token")
+                this.$axios.post(url, data, {headers: {Authorization: brToken}}).then(response => {
+                    console.log(response)
+                    if(response.status == 201){
+                        // this.$router.push("/all-orders")
+                        this.$toast.open({
+                            position: "top",
+                            message: "Successfully order create",
+                            type: "success",
+                        });
+                    }
+                }).catch(err => {
+                    this.$toast.open({
+                        position: "top",
+                        message: "Order creation faield",
+                        type: "warning",
+                    });
+                });
             }
         },
         addselectedProduct(){
@@ -183,7 +227,6 @@ export default {
                     "customer": this.$route.query.id,
                     "memo": this.memo
                 }
-                console.log(data)
                 let url = API_URL(`customer/order`);
                 let brToken = 'Bearer '+localStorage.getItem("token")
                 this.$axios.post(url, data, {headers: {Authorization: brToken}}).then(response => {
